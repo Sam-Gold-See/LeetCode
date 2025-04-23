@@ -2,9 +2,9 @@ package com.leetcode.spring25.Else;
 
 import org.junit.Test;
 
-public class DynamicProgrammingTest {
+public class ElseTest {
 
-/*
+    /*
     // 509 斐波那契数 DP
     public int fib(int n) {
         if (n < 2)
