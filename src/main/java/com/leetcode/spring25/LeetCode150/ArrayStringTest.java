@@ -2,8 +2,8 @@ package com.leetcode.spring25.LeetCode150;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Stack;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class ArrayStringTest {
 
@@ -134,17 +134,122 @@ public class ArrayStringTest {
     }
 */
 
-    // 45 跳跃游戏 II
+/*
+    // 45 跳跃游戏 II 贪心
     public int jump(int[] nums) {
         int len = nums.length;
-        int[] dp = new int[len];
-        dp[0] = 1;
-        for (int i = 1; i < len; i++) {
+        int ans = 0;
+        int nextR = 0;
+        int curR = 0;
+        for (int i = 0; i < len - 1; i++) {
+            nextR = Math.max(nextR, nums[i] + i);
+            if (i == curR) {
+                curR = nextR;
+                ans++;
+            }
+        }
+        return ans;
+    }
+*/
 
+/*
+    // 274 H 指数 排序
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        int len = citations.length;
+        int i = len - 1, h = 0;
+        while (i >= 0 && citations[i] > h) {
+            i--;
+            h++;
+        }
+        return h;
+    }
+*/
+
+/*
+    // 380 O(1) 时间插入、删除和获取随机元素 哈希 数组
+    public static class RandomizedSet {
+
+        private final Map<Integer, Integer> map;
+        private final Random random;
+        private final List<Integer> list;
+
+        public RandomizedSet() {
+            map = new HashMap<>();
+            random = new Random();
+            list = new ArrayList<>();
         }
 
-        return dp[len - 1];
+        public boolean insert(int val) {
+            if (!map.containsKey(val)) {
+                list.add(val);
+                map.put(val, list.size() - 1);
+                return true;
+            }
+            return false;
+        }
+
+        public boolean remove(int val) {
+            if (map.containsKey(val)) {
+                int index = map.get(val);
+                int lastVal = list.get(list.size() - 1);
+
+                list.set(index, lastVal);
+                map.put(lastVal, index);
+
+                list.remove(list.size() - 1);
+                map.remove(val);
+                return true;
+            }
+            return false;
+        }
+
+        public int getRandom() {
+            return list.get(random.nextInt(list.size()));
+        }
     }
+*/
+
+/*
+    // 238 除自身以外数组的乘积 前缀和
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] suf = new int[len];
+        suf[len - 1] = 1;
+
+        for (int i = len - 2; i >= 0; i--)
+            suf[i] = suf[i + 1] * nums[i + 1];
+        int[] ans = new int[len];
+        ans[0] = suf[0];
+        int pre = 1;
+
+        for (int i = 1; i < len; i++) {
+            pre *= nums[i - 1];
+            ans[i] = suf[i] * pre;
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 134 加油站 贪心
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int cur = 0, total = 0;
+        int start = 0;
+        for (int i = 0; i < gas.length; i++) {
+            int res = gas[i] - cost[i];
+            cur += res;
+            total += res;
+            if (cur < 0) {
+                start = i + 1;
+                cur = 0;
+            }
+        }
+        if (total < 0)
+            return -1;
+        return start;
+    }
+*/
 
     @Test
     public void test() {
