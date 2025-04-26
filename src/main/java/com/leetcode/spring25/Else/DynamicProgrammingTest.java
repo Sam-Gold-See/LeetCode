@@ -106,6 +106,43 @@ public class DynamicProgrammingTest {
     }
 */
 
+/*
+    // 198 打家劫舍 DP
+    public int rob(int[] nums) {
+        if (nums.length < 2)
+            return nums[0];
+        int len = nums.length;
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < len; i++)
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        return dp[len - 1];
+    }
+*/
+
+/*
+    // 213 打家劫舍 II DP
+    public int rob(int[] nums) {
+        int len = nums.length;
+        if (len == 1)
+            return nums[0];
+        return Math.max(rob(nums, 0, len - 1), rob(nums, 1, len));
+    }
+
+    public int rob(int[] nums, int start, int end) {
+        if (end - start < 2)
+            return nums[start];
+        int len = nums.length;
+        int[] dp = new int[len];
+        dp[start] = nums[start];
+        dp[start + 1] = Math.max(nums[start], nums[start + 1]);
+        for (int i = start + 2; i < end; i++)
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        return dp[end - 1];
+    }
+*/
+
     @Test
     public void test() {
     }

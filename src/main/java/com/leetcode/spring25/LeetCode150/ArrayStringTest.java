@@ -251,6 +251,34 @@ public class ArrayStringTest {
     }
 */
 
+/*
+    // 13 罗马数字转整数 模拟
+    public int romanToInt(String s) {
+        int[] map = new int[128];
+        map['I'] = 1;
+        map['V'] = 5;
+        map['X'] = 10;
+        map['L'] = 50;
+        map['C'] = 100;
+        map['D'] = 500;
+        map['M'] = 1000;
+        int sum = 0;
+        int preNum = map[s.charAt(0)];
+        for (int i = 1; i < s.length(); i++) {
+            int num = map[s.charAt(i)];
+            if(preNum < num)
+                sum -= preNum;
+            else
+                sum += preNum;
+            preNum = num;
+        }
+        sum += preNum;
+        return sum;
+    }
+*/
+
+
+
     @Test
     public void test() {
     }
