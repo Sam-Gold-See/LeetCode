@@ -277,7 +277,105 @@ public class ArrayStringTest {
     }
 */
 
+/*
+    // 58 最后一个单词的长度 模拟
+    public int lengthOfLastWord(String s) {
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+        int pos = len - 1;
+        while (chars[pos] == ' ')
+            pos--;
+        int ans = 0;
+        while (pos >= 0 && chars[pos] != ' ') {
+            ans++;
+            pos--;
+        }
+        return ans;
+    }
+*/
 
+/*
+    // 14 最长公共前缀 模拟
+    public String longestCommonPrefix(String[] strs) {
+        StringBuilder sb = new StringBuilder();
+        char[] chars = strs[0].toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 1; j < strs.length; j++)
+                if (strs[j].length() <= i || chars[i] != strs[j].charAt(i))
+                    return sb.toString();
+            sb.append(chars[i]);
+        }
+        return sb.toString();
+    }
+*/
+
+/*
+    // 151 反转字符串中的单词 栈 模拟
+    public String reverseWords(String s) {
+        int len = s.length(), pos = 0;
+        char[] chars = s.toCharArray();
+        Stack<String> stack = new Stack<>();
+        while (pos < len) {
+            while (pos < len && chars[pos] == ' ')
+                pos++;
+            if (pos >= len)
+                break;
+            StringBuilder sb = new StringBuilder();
+            while (pos < len && chars[pos] != ' ')
+                sb.append(chars[pos++]);
+            stack.push(sb.toString());
+        }
+        StringBuilder sb = new StringBuilder(stack.pop());
+        while (!stack.isEmpty())
+            sb.append(' ').append(stack.pop());
+        return sb.toString();
+    }
+*/
+
+/*
+    // 6 Z 字型变换 模拟
+    public String convert(String s, int numRows) {
+        if (numRows < 2)
+            return s;
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < numRows; i++)
+            rows.add(new StringBuilder());
+        int i = 0, flag = -1;
+        for (char c : s.toCharArray()) {
+            rows.get(i).append(c);
+            if (i == 0 || i == numRows - 1)
+                flag = -flag;
+            i += flag;
+        }
+        StringBuilder res = new StringBuilder();
+        for(StringBuilder row : rows)
+            res.append(row);
+        return res.toString();
+    }
+*/
+
+    // 28 找出字符串中第一个匹配项的下标 KMP
+    public int strStr(String haystack, String needle) {
+        int mLen = haystack.length(), nLen = needle.length();
+        int[] next = new int[nLen];
+        for (int i = 1, j = 0; i < nLen; i++) {
+            while (j > 0 && needle.charAt(i) != needle.charAt(j))
+                j = next[j - 1];
+            if (needle.charAt(i) == needle.charAt(j))
+                j++;
+            next[i] = j;
+        }
+
+        for (int i = 0, j = 0; i < haystack.length(); i++) {
+            while (j > 0 && haystack.charAt(i) != needle.charAt(j))
+                j = next[j - 1];
+            if (haystack.charAt(i) == needle.charAt(j))
+                j++;
+            if (j == nLen)
+                return i - nLen + 1;
+        }
+        return -1;
+    }
 
     @Test
     public void test() {
