@@ -278,6 +278,26 @@ public class ArrayStringTest {
 */
 
 /*
+    // 12 整数转罗马数字 模拟
+    public String intToRoman(int num) {
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            int value = values[i];
+            String symbol = symbols[i];
+            while (num >= value) {
+                num -= value;
+                sb.append(symbol);
+            }
+            if (num == 0)
+                break;
+        }
+        return sb.toString();
+    }
+*/
+
+/*
     // 58 最后一个单词的长度 模拟
     public int lengthOfLastWord(String s) {
         char[] chars = s.toCharArray();
@@ -354,6 +374,7 @@ public class ArrayStringTest {
     }
 */
 
+/*
     // 28 找出字符串中第一个匹配项的下标 KMP
     public int strStr(String haystack, String needle) {
         int mLen = haystack.length(), nLen = needle.length();
@@ -376,6 +397,7 @@ public class ArrayStringTest {
         }
         return -1;
     }
+*/
 
     @Test
     public void test() {
