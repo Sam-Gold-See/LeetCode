@@ -2,6 +2,10 @@ package com.leetcode.spring25.LeetCode150;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class BackTrackingTest {
 
 /*
@@ -154,6 +158,84 @@ public class BackTrackingTest {
                 dfs(nextSum, i);
             path.remove(path.size() - 1);
         }
+    }
+*/
+
+/*
+    // 22 括号生成 回溯
+    private List<String> ans = new ArrayList<>();
+    private StringBuilder path = new StringBuilder();
+
+    public List<String> generateParenthesis(int n) {
+        if (n != 0)
+            dfs(n, n);
+        return ans;
+    }
+
+    private void dfs(int left, int right) {
+        if (left == 0 && right == 0) {
+            ans.add(path.toString());
+            return;
+        }
+
+        if (left > right)
+            return;
+
+        if (left > 0) {
+            path.append("(");
+            dfs(left - 1, right);
+            path.deleteCharAt(path.length() - 1);
+        }
+
+        if (right > 0) {
+            path.append(")");
+            dfs(left, right - 1);
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+*/
+
+/*
+    // 79 单词搜索 回溯
+    private int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    private char[][] board;
+    private char[] goal;
+
+    public boolean exist(char[][] board, String word) {
+        this.board = board;
+        goal = word.toCharArray();
+
+        int[] cnt = new int[128];
+        for (char[] row : board)
+            for (char c : row)
+                cnt[c]++;
+
+        int[] wordCnt = new int[128];
+        for (char c : goal)
+            if (++wordCnt[c] > cnt[c])
+                return false;
+
+        for (int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[0].length; j++)
+                if (dfs(i, j, 0))
+                    return true;
+        return false;
+    }
+
+    private boolean dfs(int i, int j, int pos) {
+        if (board[i][j] != goal[pos])
+            return false;
+        if (pos == goal.length - 1)
+            return true;
+        board[i][j] = 0;
+        for(int[] dir : DIR){
+            int tx = i + dir[0];
+            int ty = j + dir[1];
+            if(tx >=0 && tx<board.length && ty>=0 && ty<board[0].length && dfs(tx, ty, pos+1))
+                return true;
+        }
+        board[i][j] = goal[pos];
+        return false;
     }
 */
 
