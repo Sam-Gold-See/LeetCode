@@ -2,6 +2,10 @@ package com.leetcode.spring25.Else;
 
 import org.junit.Test;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
+
 public class ElseTest {
 
 /*
@@ -39,6 +43,36 @@ public class ElseTest {
         for(int i = 0;i < len; i++)
             ans[i] = nums[nums[i]];
         return ans;
+    }
+*/
+
+/*
+    // 3341 到达最后一个房间的最少时间 I BFS
+    private final static int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+    public int minTimeToReach(int[][] moveTime) {
+        int m = moveTime.length, n = moveTime[0].length;
+        int[][] distance = new int[m][n];
+        for (int i = 0; i < m; i++)
+            Arrays.fill(distance[i], Integer.MAX_VALUE);
+        distance[0][0] = 0;
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.offer(new int[]{0, 0, 0});
+        while (!queue.isEmpty()) {
+            int[] now = queue.poll();
+            for (int[] dir : DIR) {
+                int tx = now[0] + dir[0], ty = now[1] + dir[1];
+                if (tx < 0 || tx >= m || ty < 0 || ty >= n)
+                    continue;
+                int time = Math.max(now[2], moveTime[tx][ty]);
+                time++;
+                if (time < distance[tx][ty]) {
+                    distance[tx][ty] = time;
+                    queue.offer(new int[]{tx, ty, time});
+                }
+            }
+        }
+        return distance[m - 1][n - 1];
     }
 */
 
