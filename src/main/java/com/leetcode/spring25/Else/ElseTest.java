@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class ElseTest {
@@ -73,6 +74,37 @@ public class ElseTest {
             }
         }
         return distance[m - 1][n - 1];
+    }
+*/
+
+/*
+    // 3342 到达最后一个房间的最少时间 II BFS
+    private final static int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+    public int minTimeToReach(int[][] moveTime) {
+        int m = moveTime.length, n = moveTime[0].length;
+        int[][] distance = new int[m][n];
+        for (int i = 0; i < m; i++)
+            Arrays.fill(distance[i], Integer.MAX_VALUE);
+        distance[0][0] = 0;
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        queue.offer(new int[]{0, 0, 0, 1});
+        while (!queue.isEmpty()) {
+            int[] now = queue.poll();
+            if (now[0] == m - 1 && now[1] == n - 1)
+                return now[2];
+            for (int[] dir : DIR) {
+                int tx = now[0] + dir[0], ty = now[1] + dir[1];
+                if (tx < 0 || tx >= m || ty < 0 || ty >= n)
+                    continue;
+                int time = now[3] + Math.max(now[2], moveTime[tx][ty]);
+                if (time < distance[tx][ty]) {
+                    distance[tx][ty] = time;
+                    queue.offer(new int[]{tx, ty, time, now[3] == 1 ? 2 : 1});
+                }
+            }
+        }
+        return -1;
     }
 */
 
