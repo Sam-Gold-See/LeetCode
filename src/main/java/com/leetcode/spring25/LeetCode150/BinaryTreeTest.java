@@ -334,6 +334,165 @@ public class BinaryTreeTest {
     }
 */
 
+/*
+    // 637 二叉树的层平均值 二叉树 BFS
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> list = new ArrayList<>();
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            double sum = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                sum += node.val;
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+            list.add(sum / size);
+        }
+        return list;
+    }
+*/
+
+/*
+    // 102 二叉树的层序遍历 二叉树 BFS
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root != null) {
+            Deque<TreeNode> queue = new ArrayDeque<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                List<Integer> temp = new ArrayList<>();
+                while (size-- > 0) {
+                    TreeNode node = queue.poll();
+                    if (node.left != null)
+                        queue.offer(node.left);
+                    if (node.right != null)
+                        queue.offer(node.right);
+                    temp.add(node.val);
+                }
+                list.add(temp);
+            }
+        }
+        return list;
+    }
+*/
+
+/*
+    // 103 二叉树的锯齿形层序遍历 二叉树 BFS
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root != null) {
+            Deque<TreeNode> queue = new ArrayDeque<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                LinkedList<Integer> list = new LinkedList<>();
+                while (size-- > 0) {
+                    TreeNode node = queue.poll();
+                    if(ans.size()%2 ==0)
+                        list.offerLast(node.val);
+                    else
+                        list.offerFirst(node.val);
+                    if (node.left != null)
+                        queue.offer(node.left);
+                    if (node.right != null)
+                        queue.offer(node.right);
+                }
+                ans.add(list);
+            }
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 530 二叉搜索树的最小绝对差 二叉树 DFS
+    private int ans = Integer.MAX_VALUE;
+    private int pre = -1;
+
+    public int getMinimumDifference(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    private void dfs(TreeNode node) {
+        if (node == null)
+            return;
+        dfs(node.left);
+        if (pre != -1)
+            ans = Math.min(ans, node.val - pre);
+        pre = node.val;
+        dfs(node.right);
+    }
+*/
+
+/*
+    // 783 二叉搜索树节点最小距离 二叉树 DFS
+    private int ans = Integer.MAX_VALUE;
+    private int pre = -1;
+
+    public int minDiffInBST(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    private void dfs(TreeNode node) {
+        if (node == null)
+            return;
+        dfs(node.left);
+        if (pre != -1)
+            ans = Math.min(ans, node.val - pre);
+        pre = node.val;
+        dfs(node.right);
+    }
+*/
+
+/*
+    // 230 二叉搜索树中第K小的元素 二叉树
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        while (root != null || !queue.isEmpty()) {
+            while (root != null) {
+                queue.offer(root);
+                root = root.left;
+            }
+            root = queue.pollLast();
+            if (--k == 0)
+                break;
+            root = root.right;
+        }
+        return root.val;
+    }
+*/
+
+/*
+    // 98 验证二叉搜索树 二叉树 DFS
+    private boolean ans = true;
+    private long pre = Long.MIN_VALUE;
+
+    public boolean isValidBST(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    private void dfs(TreeNode node) {
+        if (node == null)
+            return;
+        dfs(node.left);
+        if (!ans || node.val <= pre) {
+            ans = false;
+            return;
+        }
+        pre = node.val;
+        dfs(node.right);
+    }
+*/
+
     @Test
     public void test() {
     }
