@@ -2,6 +2,8 @@ package com.leetcode.spring25;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 public class CodeTopTest {
 
     public static class ListNode {
@@ -233,6 +235,105 @@ public class CodeTopTest {
         return ans;
     }
 */
+
+/*
+    // 21 合并两个有序链表 链表
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(), cur = dummy;
+        while (list1 != null || list2 != null) {
+            if (list1 == null) {
+                cur.next = list2;
+                list2 = list2.next;
+            } else if (list2 == null) {
+                cur.next = list1;
+                list1 = list1.next;
+            } else if (list1.val < list2.val) {
+                cur.next = list1;
+                list1 = list1.next;
+            } else {
+                cur.next = list2;
+                list2 = list2.next;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+*/
+
+    // 912 排序数组 快排
+    // 当子数组长度 <= 7 时，使用插入排序
+    private static final int INSERTION_SORT_THRESHOLD = 7;
+    private static final Random RANDOM = new Random();
+
+    public int[] sortArray(int[] nums) {
+        if (nums == null || nums.length <= 1) {
+            return nums;
+        }
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private void quickSort(int[] nums, int left, int right) {
+        int length = right - left + 1;
+        // 如果子区间长度小于等于阈值，用插入排序
+        if (length <= INSERTION_SORT_THRESHOLD) {
+            insertionSort(nums, left, right);
+            return;
+        }
+
+        // 随机选一个枢轴，交换到 right 位置
+        int randIdx = left + RANDOM.nextInt(length); // [left, right]
+        swap(nums, randIdx, right);
+
+        // 按分区法做划分
+        int pivotIndex = partition(nums, left, right);
+
+        // 递归左右子区间
+        quickSort(nums, left, pivotIndex - 1);
+        quickSort(nums, pivotIndex + 1, right);
+    }
+
+    /**
+     * 分区：以 nums[right] 作为枢轴，把小于等于枢轴的都移到左边
+     * 最后把枢轴放到 i+1 的位置，返回枢轴的新索引
+     */
+    private int partition(int[] nums, int left, int right) {
+        int pivot = nums[right];
+        int i = left - 1;
+        for (int j = left; j < right; j++) {
+            if (nums[j] <= pivot) {
+                i++;
+                swap(nums, i, j);
+            }
+        }
+        swap(nums, i + 1, right);
+        return i + 1;
+    }
+
+    /**
+     * 插入排序：将 [left..right] 范围内的元素进行就地排序
+     */
+    private void insertionSort(int[] nums, int left, int right) {
+        for (int i = left + 1; i <= right; i++) {
+            int current = nums[i];
+            int j = i - 1;
+            // 从后向前，把比 current 大的都往右移
+            while (j >= left && nums[j] > current) {
+                nums[j + 1] = nums[j];
+                j--;
+            }
+            nums[j + 1] = current;
+        }
+    }
+
+    /**
+     * 交换两个位置的元素
+     */
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
 
     @Test
     public void test() {
