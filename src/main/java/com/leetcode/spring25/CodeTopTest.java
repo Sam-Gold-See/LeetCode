@@ -2,8 +2,6 @@ package com.leetcode.spring25;
 
 import org.junit.Test;
 
-import java.util.Random;
-
 public class CodeTopTest {
 
     public static class ListNode {
@@ -20,6 +18,25 @@ public class CodeTopTest {
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
+        }
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
 
@@ -260,6 +277,7 @@ public class CodeTopTest {
     }
 */
 
+/*
     // 912 排序数组 快排
     // 当子数组长度 <= 7 时，使用插入排序
     private static final int INSERTION_SORT_THRESHOLD = 7;
@@ -293,26 +311,20 @@ public class CodeTopTest {
         quickSort(nums, pivotIndex + 1, right);
     }
 
-    /**
-     * 分区：以 nums[right] 作为枢轴，把小于等于枢轴的都移到左边
-     * 最后把枢轴放到 i+1 的位置，返回枢轴的新索引
-     */
+    // 分区：以 nums[right] 作为枢轴，把小于等于枢轴的都移到左边,最后把枢轴放到 i+1 的位置，返回枢轴的新索引
     private int partition(int[] nums, int left, int right) {
         int pivot = nums[right];
         int i = left - 1;
-        for (int j = left; j < right; j++) {
+        for (int j = left; j < right; j++)
             if (nums[j] <= pivot) {
                 i++;
                 swap(nums, i, j);
             }
-        }
         swap(nums, i + 1, right);
         return i + 1;
     }
 
-    /**
-     * 插入排序：将 [left..right] 范围内的元素进行就地排序
-     */
+    // 插入排序：将 [left.right] 范围内的元素进行就地排序
     private void insertionSort(int[] nums, int left, int right) {
         for (int i = left + 1; i <= right; i++) {
             int current = nums[i];
@@ -326,14 +338,72 @@ public class CodeTopTest {
         }
     }
 
-    /**
-     * 交换两个位置的元素
-     */
+    // 交换两个位置的元素
     private void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+*/
+
+/*
+    // 102 二叉树的层序遍历 BFS
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root != null) {
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            deque.offer(root);
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+                List<Integer> temp = new ArrayList<>();
+                while (size-- > 0) {
+                    TreeNode node = deque.poll();
+                    if (node.left != null)
+                        deque.offer(node.left);
+                    if (node.right != null)
+                        deque.offer(node.right);
+                    temp.add(node.val);
+                }
+                ans.add(temp);
+            }
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 1 两数之和 哈希
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i]))
+                return new int[]{map.get(target - nums[i]), i};
+            map.put(nums[i], i);
+        }
+        return new int[]{};
+    }
+*/
+
+/*
+    // 33 搜索旋转排序数组 二分
+    public int search(int[] nums, int target) {
+        int len = nums.length;
+        if (len == 1) return nums[0] == target ? 0 : -1;
+        int l = 0, r = len - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] == target) return mid;
+            if (nums[mid] >= nums[0]) {
+                if (nums[0] <= target && target < nums[mid]) r = mid - 1;
+                else l = mid + 1;
+            } else {
+                if (nums[mid] < target && target <= nums[len - 1]) l = mid + 1;
+                else r = mid - 1;
+            }
+        }
+        return -1;
+    }
+*/
 
     @Test
     public void test() {
