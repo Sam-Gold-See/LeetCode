@@ -405,6 +405,115 @@ public class CodeTopTest {
     }
 */
 
+/*
+    // 200 岛屿数量 DFS
+    private static final int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    private char[][] grid;
+
+    public int numIslands(char[][] grid) {
+        int ans = 0;
+        this.grid = grid;
+        for (int i = 0; i < grid.length; i++)
+            for (int j = 0; j < grid[0].length; j++)
+                if (grid[i][j] == '1') {
+                    dfs(i, j);
+                    ans++;
+                }
+        return ans;
+    }
+
+    private void dfs(int i, int j) {
+        for (int[] dir : DIR) {
+            int tx = i + dir[0], ty = j + dir[1];
+            if (tx < grid.length && tx >= 0 && ty < grid[0].length && ty >= 0 && grid[tx][ty] == '1') {
+                grid[tx][ty] = '0';
+                dfs(tx, ty);
+            }
+        }
+    }
+*/
+
+/*
+    // 46 全排列 哈希
+    private final List<List<Integer>> ans = new ArrayList<>();
+    private final LinkedList<Integer> path = new LinkedList<>();
+    private final boolean[] bool = new boolean[6];
+    private int[] nums;
+
+    public List<List<Integer>> permute(int[] nums) {
+        this.nums = nums;
+        dfs(0);
+        return ans;
+    }
+
+    private void dfs(int depth) {
+        if (depth == nums.length) {
+            List<Integer> temp = new ArrayList<>(path);
+            ans.add(temp);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!bool[i]) {
+                bool[i] = true;
+                path.offerLast(nums[i]);
+                dfs(depth + 1);
+                path.pollLast();
+                bool[i] = false;
+            }
+        }
+    }
+*/
+
+/*
+    // 88 合并两个有序数组 双指针
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int pos = m + n - 1;
+        m--;
+        n--;
+        while (n >= 0) {
+            if (m >= 0 && nums1[m] >= nums2[n])
+                nums1[pos--] = nums1[m--];
+            else
+                nums1[pos--] = nums2[n--];
+        }
+    }
+*/
+
+/*
+    // 20 有效的括号 栈
+    public boolean isValid(String s) {
+        Deque<Character> deque = new ArrayDeque<>();
+        char[] chars = s.toCharArray();
+        char[] left = new char[128];
+        char[] right = new char[128];
+        left['('] = ')';
+        right[')'] = '(';
+        left['{'] = '}';
+        right['}'] = '{';
+        left['['] = ']';
+        right[']'] = '[';
+
+        for (char c : chars)
+            if (left[c] != 0)
+                deque.offer(c);
+            else if (deque.isEmpty() || deque.pollLast() != right[c])
+                return false;
+        return deque.isEmpty();
+    }
+*/
+
+/*
+    // 121 买卖股票的最佳时机 贪心
+    public int maxProfit(int[] prices) {
+        int ans = 0;
+        int cost = Integer.MAX_VALUE;
+        for (int price : prices) {
+            cost = Math.min(cost, price);
+            ans = Math.max(price - cost, ans);
+        }
+        return ans;
+    }
+*/
+
     @Test
     public void test() {
     }
