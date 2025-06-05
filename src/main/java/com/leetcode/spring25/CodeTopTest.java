@@ -514,6 +514,49 @@ public class CodeTopTest {
     }
 */
 
+/*
+    // 103 二叉树的锯齿形层序遍历 二叉树 BFS
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root != null) {
+            Deque<TreeNode> queue = new ArrayDeque<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                LinkedList<Integer> list = new LinkedList<>();
+                while (size-- > 0) {
+                    TreeNode node = queue.poll();
+                    if(ans.size()%2 ==0)
+                        list.addLast(node.val);
+                    else
+                        list.addFirst(node.val);
+                    if (node.left != null)
+                        queue.offer(node.left);
+                    if (node.right != null)
+                        queue.offer(node.right);
+                }
+                ans.add(list);
+            }
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 236 二叉树的最近公共祖先 递归
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q)
+            return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null)
+            return right;
+        if (right == null)
+            return left;
+        return root;
+    }
+*/
+
     @Test
     public void test() {
     }
