@@ -557,6 +557,159 @@ public class CodeTopTest {
     }
 */
 
+/*
+    // 165 比较版本号 模拟
+    public int compareVersion(String version1, String version2) {
+        String[] ver1 = version1.split("\\.");
+        String[] ver2 = version2.split("\\.");
+        int n = ver1.length, m = ver2.length;
+        int i = 0, j = 0;
+        while (i < n || j < m) {
+            int a = 0, b = 0;
+            if (i < n) a = Integer.parseInt(ver1[i++]);
+            if (j < m) b = Integer.parseInt(ver2[j++]);
+            if (a != b) return a > b ? 1 : -1;
+        }
+        return 0;
+    }
+*/
+
+/*
+    // 92 反转链表 II 链表 模拟
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode p0 = dummy;
+        for (int i = 0; i < left - 1; i++)
+            p0 = p0.next;
+
+        ListNode pre = null;
+        ListNode cur = p0.next;
+        for (int i = 0; i < right - left + 1; i++) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+
+        p0.next.next = cur;
+        p0.next = pre;
+        return dummy.next;
+    }
+*/
+
+/*
+    // 141 环形链表 链表 快慢指针
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow)
+                return true;
+        }
+        return false;
+    }
+*/
+
+/*
+    // 54 螺旋矩阵 模拟
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new LinkedList<>();
+        int m = matrix.length, n = matrix[0].length;
+        int l = 0, r = n - 1, t = 0, b = m - 1;
+        while (true) {
+            for (int i = l; i <= r; i++)
+                list.add(matrix[t][i]);
+            if (++t > b) break;
+            for (int i = t; i <= b; i++)
+                list.add(matrix[i][r]);
+            if (--r < l) break;
+            for (int i = r; i >= l; i--)
+                list.add(matrix[b][i]);
+            if (--b < t) break;
+            for (int i = b; i >= t; i--)
+                list.add(matrix[i][l]);
+            if (++l > r) break;
+        }
+        return list;
+    }
+*/
+
+/*
+    // 300 最长递增子序列 DP
+    public int lengthOfLIS(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len];
+        int res = 0;
+        Arrays.fill(dp, 1);
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < i; j++)
+                if (nums[i] > nums[j])
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+*/
+
+/*
+    // 143 重排链表 链表
+    public void reorderList(ListNode head) {
+        ListNode cur = head;
+        List<ListNode> list = new ArrayList<>();
+        while (cur != null) {
+            list.add(cur);
+            cur = cur.next;
+        }
+        int l = 0, r = list.size() - 1;
+        while (l < r) {
+            list.get(l).next = list.get(r);
+            l++;
+            if (l == r)
+                break;
+            list.get(r).next = list.get(l);
+            r--;
+        }
+        list.get(l).next = null;
+    }
+*/
+
+/*
+    // 415 字符串相加 双指针 模拟
+    public String addStrings(String num1, String num2) {
+        int ai = num1.length() - 1, bi = num2.length() - 1;
+        StringBuilder sb = new StringBuilder();
+        int res = 0;
+        while (ai >= 0 || bi >= 0) {
+            int a = ai >= 0 ? num1.charAt(ai--) - '0' : 0;
+            int b = bi >= 0 ? num2.charAt(bi--) - '0' : 0;
+            int num = a + b + res;
+            res = num / 10;
+            sb.append(num % 10);
+        }
+        if (res != 0)
+            sb.append(res);
+        return sb.reverse().toString();
+    }
+*/
+
+/*
+    // 56 合并区间 排序
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, ((o1, o2) -> o1[0] - o2[0]));
+        List<int[]> list = new ArrayList<>();
+        int pos = -1;
+        for (int[] interval : intervals)
+            if (pos >= 0 && interval[0] <= list.get(pos)[1])
+                list.get(pos)[1] = Math.max(interval[1], list.get(pos)[1]);
+            else {
+                list.add(interval);
+                pos++;
+            }
+        return list.toArray(new int[list.size()][]);
+    }
+*/
+
     @Test
     public void test() {
     }
