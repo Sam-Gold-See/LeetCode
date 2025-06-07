@@ -710,6 +710,247 @@ public class CodeTopTest {
     }
 */
 
+/*
+    // 160 相交链表 链表 哈希
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        HashMap<ListNode , Integer> map = new HashMap<>();
+        ListNode cur = headA;
+        while (cur != null) {
+            map.put(cur, 0);
+            cur = cur.next;
+        }
+        cur = headB;
+        while (cur != null){
+            if(map.containsKey(cur))
+                return cur;
+            cur = cur.next;
+        }
+        return null;
+    }
+*/
+
+/*
+    // 160 相交链表 双指针
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode posA = headA;
+        ListNode posB = headB;
+        while (posA != posB) {
+            posA = posA != null ? posA.next : headB;
+            posB = posB != null ? posB.next : headA;
+        }
+        return posA;
+    }
+*/
+
+/*
+    // 142 环形链表 II 快慢指针
+    public ListNode detectCycle(ListNode head) {
+        ListNode f = head, s = head;
+        do {
+            if (f == null || f.next == null)
+                return null;
+            f = f.next.next;
+            s = s.next;
+        } while (f != s);
+        f = head;
+        while (s != f) {
+            s = s.next;
+            f = f.next;
+        }
+        return f;
+    }
+*/
+
+/*
+    // 19 删除链表的倒数第 N 个结点 双指针
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode l = dummy, r = dummy;
+        while (n-- > 0)
+            r = r.next;
+        while (r.next != null) {
+            l = l.next;
+            r = r.next;
+        }
+        l.next = l.next.next;
+        return dummy.next;
+    }
+*/
+
+/*
+    // 82 删除排序链表中的重复元素 II 链表
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null)
+            return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        while (cur.next != null && cur.next.next != null) {
+            int val = cur.next.val;
+            if (val == cur.next.next.val)
+                while (cur.next != null && cur.next.val == val)
+                    cur.next = cur.next.next;
+            else
+                cur = cur.next;
+        }
+        return dummy.next;
+    }
+*/
+
+/*
+    // 82 删除排序链表中的重复元素 II 链表
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null)
+            return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode pre = dummy, pos = head;
+
+        while (pos != null && pos.next != null) {
+            if (pos.val == pos.next.val) {
+                while (pos != null && pos.val == pre.next.val)
+                    pos = pos.next;
+                pre.next = pos;
+            } else {
+                pre = pos;
+                pos = pos.next;
+            }
+        }
+        return dummy.next;
+    }
+*/
+
+/*
+    // 199 二叉树的右视图 BFS
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new LinkedList<>();
+        if (root != null) {
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            deque.offer(root);
+            while (!deque.isEmpty()){
+                int size = deque.size();
+                while (size-- > 0){
+                    TreeNode temp = deque.poll();
+                    if(temp.left != null)
+                        deque.offer(temp.left);
+                    if(temp.right != null)
+                        deque.offer(temp.right);
+                    if(size == 0)
+                        ans.add(temp.val);
+                }
+            }
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 94 二叉树的中序遍历 递归
+    private final List<Integer> ans = new LinkedList<>();
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if (root != null)
+            dfs(root);
+        return ans;
+    }
+
+    private void dfs(TreeNode node) {
+        if (node != null) {
+            dfs(node.left);
+            ans.add(node.val);
+            dfs(node.right);
+        }
+    }
+*/
+
+/*
+    // 704 二分查找 二分
+    public int search(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] > target)
+                r = mid - 1;
+            else
+                l = mid + 1;
+        }
+        return -1;
+    }
+*/
+
+/*
+    // 232 用栈实现队列 栈
+    class MyQueue {
+
+        Stack<Integer> inStack;
+        Stack<Integer> outStack;
+
+        public MyQueue() {
+            inStack = new Stack<>();
+            outStack = new Stack<>();
+        }
+
+        public void push(int x) {
+            inStack.push(x);
+        }
+
+        public int pop() {
+            if (outStack.isEmpty())
+                in2out();
+            return outStack.pop();
+        }
+
+        public int peek() {
+            if (outStack.isEmpty())
+                in2out();
+            return outStack.peek();
+        }
+
+        public boolean empty() {
+            return inStack.isEmpty() && outStack.isEmpty();
+        }
+
+        private void in2out() {
+            while (!inStack.isEmpty())
+                outStack.push(inStack.pop());
+        }
+    }
+*/
+
+/*
+    // 22 括号生成 DFS
+    private final StringBuilder path = new StringBuilder();
+    private final List<String> ans = new LinkedList<>();
+
+    public List<String> generateParenthesis(int n) {
+        if (n != 0)
+            dfs(n, n);
+        return ans;
+    }
+
+    private void dfs(int left, int right) {
+        if (left == 0 && right == 0) {
+            ans.add(path.toString());
+            return;
+        }
+
+        if (left > right)
+            return;
+
+        if (left > 0) {
+            path.append("(");
+            dfs(left - 1, right);
+            path.deleteCharAt(path.length() - 1);
+        }
+
+        if (right > 0) {
+            path.append(")");
+            dfs(left, right - 1);
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+*/
+
     @Test
     public void test() {
     }
