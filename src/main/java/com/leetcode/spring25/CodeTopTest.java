@@ -951,6 +951,93 @@ public class CodeTopTest {
     }
 */
 
+/*
+    // 143 重排链表 快慢指针 链表
+    public void reorderList(ListNode head) {
+        ListNode mid = middleNode(head);
+        ListNode right = reverseList(mid);
+        while (right.next != null) {
+            ListNode nextLeft = head.next;
+            ListNode nextRight = right.next;
+            head.next = right;
+            right.next = nextLeft;
+            head = nextLeft;
+            right = nextRight;
+        }
+    }
+
+    private ListNode middleNode(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode pre = null, cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+*/
+
+/*
+    // 53 最大子数组和 DP
+    public int maxSubArray(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+        int res = dp[0];
+        for (int i = 1; i < len; i++) {
+            if (dp[i - 1] > 0) {
+                dp[i] = dp[i - 1] + nums[i];
+            } else {
+                dp[i] = nums[i];
+            }
+            res = Math.max(dp[i], res);
+        }
+        return res;
+    }
+*/
+
+/*
+    // 300 最长递增子序列 DP
+    public int lengthOfLIS(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len];
+        Arrays.fill(dp, 1);
+        int ans = 1;
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < i; j++)
+                if (nums[i] > nums[j])
+                    dp[i] = Math.max(dp[j] + 1, dp[i]);
+            ans = Math.max(dp[i], ans);
+        }
+        return ans;
+    }
+*/
+
+/*
+    // 322 零钱兑换 DP
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++)
+            for (int coin : coins) {
+                if (i - coin >= 0 && dp[i - coin] != amount + 1)
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
+    }
+*/
+
     @Test
     public void test() {
     }
