@@ -121,6 +121,106 @@ public class ArrayStringTest {
 	}
 */
 
+/*
+	// 151. 反转字符串中的单词 模拟
+	public String reverseWords(String s) {
+		s = s.trim();
+		List<String> words = Arrays.asList(s.split("\\s+"));
+		Collections.reverse(words);
+		return String.join(" ", words);
+	}
+*/
+
+/*
+	// 151. 反转字符串中的单词 模拟
+	public String reverseWords(String s) {
+		List<String> list = new ArrayList<>();
+		int r = s.length() - 1;
+		while (r >= 0) {
+			while (r >= 0 && s.charAt(r) == ' ') {
+				r--;
+			}
+			int l = r;
+			while (l >= 0 && s.charAt(l) != ' ') {
+				l--;
+			}
+			if (r != -1) {
+				list.add(s.substring(l + 1, r + 1));
+			}
+			r = l;
+		}
+		return String.join(" ", list);
+	}
+*/
+
+/*
+	// 238. 除了自身以外数组的乘积 前缀和
+	public int[] productExceptSelf(int[] nums) {
+		int len = nums.length;
+		int[] suf = new int[len];
+		suf[len - 1] = 1;
+		for (int i = len - 2; i >= 0; i--) {
+			suf[i] = nums[i + 1] * suf[i + 1];
+		}
+		int[] ans = new int[len];
+		ans[0] = suf[0];
+		int pre = 1;
+		for (int i = 1; i < len; i++) {
+			pre *= nums[i - 1];
+			ans[i] = pre * suf[i];
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 334. 递增的三元子序列 贪心
+	public boolean increasingTriplet(int[] nums) {
+		int a = Integer.MAX_VALUE;
+		int b = Integer.MAX_VALUE;
+		for (int num : nums) {
+			if (num <= a) {
+				a = num;
+			} else if (num <= b) {
+				b = num;
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+*/
+
+/*
+	// 443. 压缩字符串 模拟
+	public int compress(char[] chars) {
+		int write = 0;
+		int read = 0;
+		while (read < chars.length) {
+			char ch = chars[read];
+			chars[write++] = ch;
+
+			int j = read + 1;
+			int num = 1;
+
+			while (j < chars.length && chars[j] == ch) {
+				j++;
+				num++;
+			}
+
+			if (num > 1) {
+				String numStr = String.valueOf(num);
+				for (char c : numStr.toCharArray()) {
+					chars[write++] = c;
+				}
+			}
+
+			read = j;
+		}
+		return write;
+	}
+*/
+
 	@Test
 	public void test() {
 	}
