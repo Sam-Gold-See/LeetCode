@@ -2,14 +2,13 @@ package com.leetcode.winter25;
 
 import org.junit.Test;
 
-import java.awt.image.CropImageFilter;
 import java.util.*;
 
 /**
  * @author HuangChunXin
  * @date 2026/2/26 15:34
  */
-public class ByteDance {
+public class ByteDanceTest {
 
 /*
 	// 快速排序
@@ -362,16 +361,24 @@ public class ByteDance {
 	}
 */
 
-	// 215. 数组中的第K个最大元素
+/*
+	// 215. 数组中的第K个最大元素 优先队列
 	public int findKthLargest(int[] nums, int k) {
 		PriorityQueue<Integer> pq = new PriorityQueue<>();
 		for (int num : nums) {
 			if (pq.size() < k) {
 				pq.offer(num);
+			} else {
+				Integer topNum = pq.peek();
+				if (num > topNum) {
+					pq.poll();
+					pq.offer(num);
+				}
 			}
-			
 		}
+		return pq.peek();
 	}
+*/
 
 /*
 	// 226. 翻转二叉树 递归
@@ -400,6 +407,114 @@ public class ByteDance {
 		return pre;
 	}
 */
+
+/*
+	// 151. 反转字符串中的单词 模拟
+	public String reverseWords(String s) {
+		s = s.trim();
+		int r = s.length() - 1;
+		int l = r;
+		StringBuilder sb = new StringBuilder();
+		while (l >= 0) {
+			while (l >= 0 && s.charAt(l) != ' ') {
+				l--;
+			}
+			sb.append(s, l + 1, r + 1).append(' ');
+			while (l >= 0 && s.charAt(l) == ' ') {
+				l--;
+			}
+			r = l;
+		}
+		return sb.toString().trim();
+	}
+*/
+
+/*
+	// 46. 全排列 DFS
+	private int[] nums;
+	private boolean[] bool;
+	private LinkedList<Integer> builder;
+	private List<List<Integer>> ans;
+
+	public List<List<Integer>> permute(int[] nums) {
+		this.nums = nums;
+		bool = new boolean[nums.length];
+		builder = new LinkedList<>();
+		ans = new LinkedList<>();
+		dfs(0);
+		return ans;
+	}
+
+	private void dfs(int pos) {
+		if (pos == nums.length) {
+			ans.add(new ArrayList<>(builder));
+			return;
+		}
+
+		for (int i = 0; i < nums.length; i++) {
+			if (!bool[i]) {
+				bool[i] = true;
+				builder.offerLast(nums[i]);
+				dfs(pos + 1);
+				builder.pollLast();
+				bool[i] = false;
+			}
+		}
+	}
+*/
+
+/*
+	// 1367. 二叉树中的链表 DFS
+	private ListNode head;
+
+	public boolean isSubPath(ListNode head, TreeNode root) {
+		this.head = head;
+		return dfs(head, root);
+	}
+
+	private boolean dfs(ListNode cur, TreeNode root) {
+		if (cur == null) {
+			return true;
+		}
+		if (root == null) {
+			return false;
+		}
+		return root.val == cur.val && (dfs(cur.next, root.left) || dfs(cur.next, root.right)) ||
+				cur == head && (dfs(head, root.left) || dfs(head, root.right));
+	}
+*/
+
+/*
+	// 105. 从前序与中序遍历序列构造二叉树
+	private int[] preorder;
+	private Map<Integer, Integer> dic = new HashMap<>();
+
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
+		this.preorder = preorder;
+		for (int i = 0; i < inorder.length; i++) {
+			dic.put(inorder[i], i);
+		}
+		return build(0, 0, inorder.length - 1);
+	}
+
+	private TreeNode build(int root, int left, int right) {
+		if (left > right) {
+			return null;
+		}
+		TreeNode node = new TreeNode(preorder[root]);
+		int mid = dic.get(preorder[root]);
+		node.left = build(root + 1, left, mid - 1);
+		node.right = build(root + mid - left + 1, mid + 1, right);
+		return node;
+	}
+*/
+
+	//
+	//
+	//
+	//
+	//
+	//
 
 	public class TreeNode {
 		int val;
