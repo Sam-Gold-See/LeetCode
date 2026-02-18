@@ -509,10 +509,93 @@ public class ByteDanceTest {
 	}
 */
 
-	//
-	//
-	//
-	//
+/*
+	// 450. 删除二叉搜索树中的节点 DFS
+	public TreeNode deleteNode(TreeNode root, int key) {
+		if (root == null) {
+			return null;
+		}
+		if (root.val == key) {
+			if (root.right == null) {
+				return root.left;
+			}
+			if (root.left == null) {
+				return root.right;
+			}
+			TreeNode node = root.left;
+			while (node.right != null) {
+				node = node.right;
+			}
+			node.right = root.right;
+			return root.left;
+		}else if (root.val < key) {
+			root.right = deleteNode(root.right, key);
+		} else {
+			root.left = deleteNode(root.left, key);
+		}
+		return root;
+	}
+*/
+
+/*
+	// 143. 重排链表 快慢指针
+	public void reorderList(ListNode head) {
+		ListNode mid = middleNode(head);
+		ListNode right = reverseList(mid);
+		while (right.next != null) {
+			ListNode nextLeft = head.next;
+			ListNode nextRight = right.next;
+
+			head.next = right;
+			right.next = nextLeft;
+
+			head = nextLeft;
+			right = nextRight;
+		}
+	}
+
+	private ListNode middleNode(ListNode head) {
+		ListNode slow = head, fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow;
+	}
+
+	private ListNode reverseList(ListNode head) {
+		ListNode pre = null;
+		ListNode cur = head;
+		while (cur != null) {
+			ListNode next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		return pre;
+	}
+*/
+
+/*
+	// 739. 每日温度 单调栈
+	public int[] dailyTemperatures(int[] temperatures) {
+		int len = temperatures.length;
+		int[] ans = new int[len];
+		Stack<Integer> stack = new Stack<>();
+		for (int i = len - 1; i >= 0; i--) {
+			int t  = temperatures[i];
+			while (!stack.isEmpty() && t >= temperatures[stack.peek()]) {
+				stack.pop();
+			}
+			if (!stack.isEmpty()) {
+				ans[i] = stack.peek() - i;
+			}
+			stack.push(i);
+		}
+		return ans;
+	}
+*/
+
 	//
 	//
 
