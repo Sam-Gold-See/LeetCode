@@ -596,8 +596,223 @@ public class ByteDanceTest {
 	}
 */
 
-	//
-	//
+/*
+	// 1162. 地图分析 BFS
+	static final int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+	int n;
+	int[][] grid;
+
+	public int maxDistance(int[][] grid) {
+		this.n = grid.length;
+		this.grid = grid;
+		int ans = -1;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (grid[i][j] == 0) {
+					ans = Math.max(ans, findNearestLand(i, j));
+				}
+			}
+		}
+		return ans;
+	}
+
+	private int findNearestLand(int x, int y) {
+		boolean[][] vis = new boolean[n][n];
+		Queue<int[]> queue = new LinkedList<>();
+		queue.offer(new int[]{x, y, 0});
+		vis[x][y] = true;
+		while (!queue.isEmpty()) {
+			int[] now = queue.poll();
+			for (int[] dir : DIR) {
+				int tx = now[0] + dir[0], ty = now[1] + dir[1];
+				if (tx < 0 || tx >= n || ty < 0 || ty >= n || vis[tx][ty]) {
+					continue;
+				}
+				queue.offer(new int[]{tx, ty, now[2] + 1});
+				vis[tx][ty] = true;
+				if (grid[tx][ty] == 1) {
+					return now[2] + 1;
+				}
+			}
+		}
+		return -1;
+	}
+*/
+
+/*
+	// 252. 会议室 https://wyh317.github.io/2021/02/17/252.%E4%BC%9A%E8%AE%AE%E5%AE%A4/#252-%E4%BC%9A%E8%AE%AE%E5%AE%A4
+	public boolean canAttendMeetings(int[][] intervals) {
+		if (intervals == null || intervals.length == 0) {
+			return true;
+		}
+		Arrays.sort(intervals, (v1, v2) -> (v1[0] - v2[0]));
+		for (int i = 0; i < intervals.length; i++) {
+			if (i - 1 >= 0 && intervals[i][0] < intervals[i - 1][1])
+				return false;
+		}
+		return true;
+	}
+*/
+
+/*
+	// 253. 会议室 II https://wyh317.github.io/2021/02/17/252.%E4%BC%9A%E8%AE%AE%E5%AE%A4/#253-%E4%BC%9A%E8%AE%AE%E5%AE%A4-II
+	public int canAttendMeetings(int[][] intervals) {
+		int count = 0;
+		if (intervals != null || intervals.length != 0) {
+			Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+			PriorityQueue<Integer> pq = new PriorityQueue<>();
+			for (int[] meeting : intervals) {
+				while (!pq.isEmpty() && meeting[0] > pq.peek()) {
+					pq.poll();
+				}
+				pq.add(meeting[0]);
+				count = Math.max(count, pq.size());
+			}
+		}
+		return count;
+	}
+*/
+
+/*
+	// 31. 下一个排列
+	public void nextPermutation(int[] nums) {
+		int n = nums.length;
+
+		int i = n - 2;
+		while (i >= 0 && nums[i] >= nums[i + 1]) {
+			i--;
+		}
+
+		if (i >= 0) {
+			int j = n - 1;
+			while (nums[j] <= nums[i]) {
+				j--;
+			}
+			swap(nums, i, j);
+		}
+
+		reverse(nums, i + 1, n - 1);
+	}
+
+	private void swap(int[] nums, int i, int j) {
+		int temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
+	}
+
+	private void reverse(int[] nums, int start, int end) {
+		int left = start, right = end;
+		while (left < right) {
+			swap(nums, left++, right--);
+		}
+	}
+*/
+
+/*
+	// 150. 逆波兰表达式 栈
+	public int evalRPN(String[] tokens) {
+		Stack<Integer> stack = new Stack<>();
+		Integer op1, op2;
+		for (String token : tokens) {
+			switch (token) {
+				case "+" -> {
+					op2 = stack.pop();
+					op1 = stack.pop();
+					stack.push(op1 + op2);
+				}
+				case "-" -> {
+					op2 = stack.pop();
+					op1 = stack.pop();
+					stack.push(op1 - op2);
+				}
+				case "*" -> {
+					op2 = stack.pop();
+					op1 = stack.pop();
+					stack.push(op1 * op2);
+				}
+				case "/" -> {
+					op2 = stack.pop();
+					op1 = stack.pop();
+					stack.push(op1 / op2);
+				}
+				default -> stack.push(Integer.valueOf(token));
+			}
+		}
+		return stack.pop();
+	}
+*/
+
+/*
+	// 134. 加油站 贪心
+	public int canCompleteCircuit(int[] gas, int[] cost) {
+		int ans = 0;
+		int minS = 0;
+		int s = 0;
+		for (int i = 0; i < gas.length; i++) {
+			s += gas[i] - cost[i];
+			if (s < minS) {
+				minS = s;
+				ans = i + 1;
+			}
+		}
+		return s < 0 ? -1 : ans;
+	}
+*/
+
+/*
+	// 19. 删除链表的倒数第 N 个结点 双指针
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+		ListNode dummy = new ListNode(0, head);
+		ListNode l = dummy, r = dummy;
+		while (n-- > 0) {
+			r = r.next;
+		}
+		while (r.next != null) {
+			l = l.next;
+			r = r.next;
+		}
+		l.next = l.next.next;
+		return dummy.next;
+	}
+*/
+
+/*
+	// 695. 岛屿的最大面积 BFS
+	private static final int[][] DIR = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+	public int maxAreaOfIsland(int[][] grid) {
+		int m = grid.length, n = grid[0].length;
+		int ans = 0;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (grid[i][j] == 1) {
+					ans = Math.max(ans, calculate(grid, i, j, m, n));
+				}
+			}
+		}
+		return ans;
+	}
+
+	private int calculate(int[][] grid, int x, int y, int m, int n) {
+		Deque<int[]> deque = new ArrayDeque<>();
+		deque.offerLast(new int[]{x, y});
+		int size = 0;
+		grid[x][y] = 0;
+		while (!deque.isEmpty()) {
+			size++;
+			int[] pos = deque.pollFirst();
+			for (int[] dir : DIR) {
+				int tx = pos[0] + dir[0], ty = pos[1] + dir[1];
+				if (tx < 0 || tx >= m || ty < 0 || ty >= n || grid[tx][ty] == 0) {
+					continue;
+				}
+				grid[tx][ty] = 0;
+				deque.offerLast(new int[]{tx, ty});
+			}
+		}
+		return size;
+	}
+*/
 
 	public class TreeNode {
 		int val;
