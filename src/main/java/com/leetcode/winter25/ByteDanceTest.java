@@ -814,6 +814,49 @@ public class ByteDanceTest {
 	}
 */
 
+/*
+	// 234. 回文链表 快慢指针
+	public boolean isPalindrome(ListNode head) {
+		if (head == null || head.next == null) {
+			return true;
+		}
+		ListNode fast = head;
+		ListNode slow = head;
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		ListNode list2 = reverseList(slow);
+		while (list2 != null) {
+			if (list2.val != head.val) {
+				return false;
+			}
+			list2 = list2.next;
+			head = head.next;
+		}
+		return true;
+	}
+
+	private ListNode reverseList(ListNode head){
+		ListNode pre = null, cur = head;
+		while (cur != null) {
+			ListNode temp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = temp;
+		}
+		return pre;
+	}
+*/
+
+	// 1297. 子串的最大出现次数
+
+	// 扑克牌中的顺子数 https://blog.csdn.net/qq_39172845/article/details/124714355
+
+	// 选择排序
+
+	// 插入排序
+
 	public class TreeNode {
 		int val;
 		TreeNode left;
