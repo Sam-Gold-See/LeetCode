@@ -2,6 +2,7 @@ package com.leetcode.winter25;
 
 import org.junit.Test;
 
+import java.awt.datatransfer.FlavorListener;
 import java.util.*;
 
 /**
@@ -849,13 +850,227 @@ public class ByteDanceTest {
 	}
 */
 
-	// 1297. 子串的最大出现次数
-
+/*
 	// 扑克牌中的顺子数 https://blog.csdn.net/qq_39172845/article/details/124714355
+	public boolean isStraight(int[] nums) {
+		int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+		HashSet<Integer> set = new HashSet<>();
+		for (int num : nums) {
+			if (num == 0) {
+				continue;
+			}
+			if (set.contains(num)) {
+				return false;
+			}
+			set.add(num);
+			max = Math.max(max, num);
+			min = Math.min(min, num);
+		}
+		return max - min < 5;
+	}
+*/
 
+/*
 	// 选择排序
+	private static void selectSort(int[] nums) {
+		int len = nums.length;
+		for (int i = 0; i < len; i++) {
+			int k = i;
+			for (int j = i+1; j < len; j++) {
+				if (nums[j] < nums[k]) {
+					k = j;
+				}
+			}
+			swap(nums, i, k);
+		}
+	}
 
+	private static void swap(int[] nums, int a, int b) {
+		int temp = nums[b];
+		nums[b] = nums[a];
+		nums[a] = temp;
+	}
+
+	public static void main(String[] args) {
+		int len = 10;
+		int[] nums = new int[len];
+		Scanner sc = new Scanner(System.in);
+		for (int i = 0; i < len; i++) {
+			nums[i] = sc.nextInt();
+		}
+
+		System.out.println(Arrays.toString(nums));
+
+		selectSort(nums);
+
+		System.out.println(Arrays.toString(nums));
+	}
+*/
+
+/*
 	// 插入排序
+	private static void insertSort(int[] nums) {
+		for (int i = 1; i < nums.length; i++) {
+			int base = nums[i], j = i - 1;
+			while (j >= 0 && nums[j] > base) {
+				nums[j + 1] = nums[j];
+				j--;
+			}
+			nums[j + 1] = base;
+		}
+	}
+
+	public static void main(String[] args) {
+		int len = 10;
+		int[] nums = new int[len];
+		Scanner sc = new Scanner(System.in);
+		for (int i = 0; i < len; i++) {
+			nums[i] = sc.nextInt();
+		}
+
+		System.out.println(Arrays.toString(nums));
+
+		insertSort(nums);
+
+		System.out.println(Arrays.toString(nums));
+	}
+*/
+
+/*
+	// 88. 合并两个有序数组 双指针
+	public void merge(int[] nums1, int m, int[] nums2, int n) {
+		int pos = m + n - 1;
+		m--;
+		n--;
+		while (n >= 0) {
+			if (m >= 0 && nums1[m] >= nums2[n]) {
+				nums1[pos--] = nums1[m--];
+			} else {
+				nums1[pos--] = nums2[n--];
+			}
+		}
+	}
+*/
+
+	/*
+		// 22. 括号生成 DFS
+		private StringBuilder sb;
+		private List<String> ans;
+		private int n;
+
+		public List<String> generateParenthesis(int n) {
+			ans = new LinkedList<>();
+			sb = new StringBuilder();
+			this.n = n;
+			dfs(0, 0);
+			return ans;
+		}
+
+		private void dfs(int left, int right) {
+			if (left == n && right == n) {
+				ans.add(new String(sb));
+				return;
+			}
+			if (right > left) {
+				return;
+			}
+
+			if (left > n || right > n) {
+				return;
+			}
+
+			sb.append('(');
+			dfs(left + 1, right);
+			sb.deleteCharAt(sb.length() - 1);
+
+			sb.append(')');
+			dfs(left, right + 1);
+			sb.deleteCharAt(sb.length() - 1);
+		}
+	*/
+
+/*
+	// 69. x 的平方根 二分
+	public int mySqrt(int x) {
+		int left = 0, right = x, ans = -1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if ((long) mid * mid <= x) {
+				ans = mid;
+				left = mid + 1;
+			} else {
+				right = mid - 1;
+			}
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 92. 反转链表 II
+	public ListNode reverseBetween(ListNode head, int left, int right) {
+		ListNode dummy = new ListNode(0, head);
+		ListNode lHead = dummy;
+		for (int i = 0; i < left - 1; i++) {
+			lHead = lHead.next;
+		}
+		ListNode rHead = lHead;
+		for (int i = left - 1; i < right; i++) {
+			rHead = rHead.next;
+		}
+		ListNode tail = rHead.next;
+		rHead.next = null;
+		lHead.next = reverse(lHead.next);
+		while (lHead.next != null) {
+			lHead = lHead.next;
+		}
+		lHead.next = tail;
+		return dummy.next;
+	}
+
+	private ListNode reverse(ListNode node) {
+		ListNode pre = null, cur = node;
+		while (cur != null) {
+			ListNode temp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = temp;
+		}
+		return pre;
+	}
+*/
+
+/*
+	// 21. 合并两个有序链表 模拟
+	public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+		ListNode dummy = new ListNode();
+		ListNode cur = dummy;
+		while (list1 != null && list2 != null) {
+			int val1 = list1.val;
+			int val2 = list2.val;
+			if (val1 <= val2) {
+				cur.next = list1;
+				cur = list1;
+				list1 = list1.next;
+			} else {
+				cur.next = list2;
+				cur = list2;
+				list2 = list2.next;
+			}
+		}
+		while (list1 != null) {
+			cur.next = list1;
+			cur = list1;
+			list1 = list1.next;
+		}
+		while (list2 != null) {
+			cur.next = list2;
+			cur = list2;
+			list2 = list2.next;
+		}
+		return dummy.next;
+	}
+*/
 
 	public class TreeNode {
 		int val;
