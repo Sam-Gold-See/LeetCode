@@ -1072,6 +1072,41 @@ public class ByteDanceTest {
 	}
 */
 
+/*
+	// 128. 最长连续序列 哈希
+	public int longestConsecutive(int[] nums) {
+		HashSet<Integer> set = new HashSet<>();
+		int ans = 0;
+		for (int num : nums) {
+			set.add(num);
+		}
+		for (Integer num : set) {
+			if (set.contains(num - 1)) {
+				continue;
+			}
+			int y = num + 1;
+			while (set.contains(y)) {
+				y++;
+			}
+			ans = Math.max(ans, y - num);
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 53. 最大子数组和
+	public int maxSubArray(int[] nums) {
+		int sum = 0, ans = Integer.MIN_VALUE;
+		for (int num : nums) {
+			sum += num;
+			ans = Math.max(ans, sum);
+			sum = Math.max(0, sum);
+		}
+		return ans;
+	}
+*/
+
 	public class TreeNode {
 		int val;
 		TreeNode left;
