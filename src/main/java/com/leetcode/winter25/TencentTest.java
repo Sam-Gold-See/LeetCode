@@ -429,6 +429,260 @@ public class TencentTest {
 	}
 */
 
+/*
+	// 103. 二叉树的锯齿形层序遍历 BFS
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+		List<List<Integer>> ans = new LinkedList<>();
+		if (root != null){
+			Deque<TreeNode> deque = new ArrayDeque<>();
+			deque.offerLast(root);
+			while (!deque.isEmpty()) {
+				int size = deque.size();
+				LinkedList<Integer> list = new LinkedList<>();
+				while (size-- > 0) {
+					TreeNode node = deque.pollFirst();
+					if (ans.size() % 2 == 0) {
+						list.addLast(node.val);
+					} else {
+						list.addFirst(node.val);
+					}
+					if (node.left != null) {
+						deque.offerLast(node.left);
+					}
+					if (node.right != null) {
+						deque.offerLast(node.right);
+					}
+				}
+				ans.add(list);
+			}
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 25. K 个一组翻转链表 模拟
+	public ListNode reverseKGroup(ListNode head, int k) {
+		ListNode dummy = new ListNode(0, head);
+		ListNode l = dummy, r = dummy;
+		while (true) {
+			int cnt = k;
+			while (r != null && cnt > 0) {
+				r = r.next;
+				cnt--;
+			}
+			if (r == null) {
+				break;
+			}
+			ListNode nextHead = r.next;
+			r.next = null;
+
+			ListNode tail = l.next;
+
+			l.next = reverse(tail);
+			tail.next = nextHead;
+
+			l = tail;
+			r = tail;
+		}
+		return dummy.next;
+	}
+
+	private ListNode reverse(ListNode node) {
+		ListNode pre = null, cur = node;
+		while (cur != null) {
+			ListNode temp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = temp;
+		}
+		return pre;
+	}
+*/
+
+/*
+	// 88. 合并两个有序数组 双指针
+	public void merge(int[] nums1, int m, int[] nums2, int n) {
+		int pos = m + n - 1;
+		m--;
+		n--;
+		while (n >= 0) {
+			if (m >= 0 && nums1[m] >= nums2[n]) {
+				nums1[pos--] = nums1[m--];
+			} else {
+				nums1[pos--] = nums2[n--];
+			}
+		}
+	}
+*/
+
+/*
+	// 236. 二叉树的最近公共祖先
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null || root == p || root == q) {
+			return root;
+		}
+		TreeNode left = lowestCommonAncestor(root.left, p, q);
+		TreeNode right = lowestCommonAncestor(root.right, p, q);
+		if (left == null) {
+			return  right;
+		}
+		if (right == null) {
+			return left;
+		}
+		return root;
+	}
+*/
+
+/*
+	// 归并排序
+	public static void mergeSort(int[] nums, int left, int right, int[] temp) {
+		if (left < right) {
+			int mid = left + (right - left) / 2;
+			mergeSort(nums, left, mid, temp);
+			mergeSort(nums, mid + 1, right, temp);
+			merge(nums, left, mid, right, temp);
+		}
+	}
+
+	private static void merge(int[] nums, int left, int mid, int right, int[] temp) {
+		int i = left;
+		int j = mid + 1;
+		int pos = left;
+
+		while (i <= mid && j <= right) {
+			if (nums[i] <= nums[j]) {
+				temp[pos++] = nums[i++];
+			} else {
+				temp[pos++] = nums[j++];
+			}
+		}
+
+		while (i <= mid) {
+			temp[pos++] = nums[i++];
+		}
+		while (j <= right) {
+			temp[pos++] = nums[j++];
+		}
+
+		pos = left;
+		while (left <= right) {
+			nums[left++] = temp[pos++];
+		}
+	}
+
+	public static void main(String[] args) {
+		int len = 10;
+		int[] nums = new int[len];
+		Scanner sc = new Scanner(System.in);
+		for (int i = 0; i < len; i++) {
+			nums[i] = sc.nextInt();
+		}
+		int[] temp = new int[len];
+
+		System.out.println(Arrays.toString(nums));
+
+		mergeSort(nums, 0, len - 1, temp);
+
+		System.out.println(Arrays.toString(nums));
+	}
+*/
+
+/*
+	// 300. 最长递增子序列
+	public int lengthOfLIS(int[] nums) {
+		int len = nums.length;
+		int[] dp = new int[len];
+		Arrays.fill(dp, 1);
+		int ans = 1;
+		for (int i = 0; i < len; i++) {
+			for (int j = 0; j < i; j++) {
+				if (nums[i] > nums[j]) {
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+				}
+			}
+			ans = Math.max(ans, dp[i]);
+		}
+		return ans;
+	}
+*/
+
+/*
+	//  面试题 08.06 汉诺塔问题
+	public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
+		movePlate(A.size(), A, B, C);
+	}
+
+	private void movePlate(int num, List<Integer> original, List<Integer> temp, List<Integer> target) {
+		if (num == 1) {
+			target.add(original.removeLast());
+			return;
+		}
+
+		movePlate(num - 1, original, target, temp);
+		target.add(original.removeLast());
+		movePlate(num - 1, temp, original, target);
+	}
+*/
+
+/*
+	// 287. 寻找重复数 快慢指针
+	public int findDuplicate(int[] nums) {
+		int slow = 0;
+		int fast = 0;
+		do {
+			slow = nums[slow];
+			fast = nums[nums[fast]];
+		} while (slow != fast);
+
+		int pre = 0;
+		while (pre != slow) {
+			pre = nums[pre];
+			slow = nums[slow];
+		}
+
+		return pre;
+	}
+*/
+
+/*
+	// 74. 搜索二维矩阵
+	public boolean searchMatrix(int[][] matrix, int target) {
+		int m = matrix.length, n = matrix[0].length;
+		int l = 0, r = m * n - 1;
+		while (l <= r) {
+			int mid = l + (r - l) / 2;
+			int i = mid / n, j = mid % n;
+			if (matrix[i][j] == target) {
+				return true;
+			} else if (matrix[i][j] > target) {
+				r = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+		}
+		return false;
+	}
+*/
+
+/*
+	// 442. 数组中重复的数据
+	public List<Integer> findDuplicates(int[] nums) {
+		ArrayList<Integer> ans = new ArrayList<>();
+		int n = nums.length;
+		for (int i = 0; i < n; i++) {
+			int num = nums[i];
+			int index = Math.abs(num) - 1;
+			if (nums[index] > 0) {
+				nums[index] = -nums[index];
+			}else {
+				ans.add(index + 1);
+			}
+		}
+		return ans;
+	}
+*/
+
 	public class TreeNode {
 		int val;
 		TreeNode left;

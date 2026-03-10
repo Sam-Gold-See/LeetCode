@@ -214,7 +214,7 @@ public class ByteDanceTest {
 			temp[pos++] = nums[j++];
 		}
 
-		pos = 0;
+		pos = left;
 		while (left <= right) {
 			nums[left++] = temp[pos++];
 		}
