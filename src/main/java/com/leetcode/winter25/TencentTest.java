@@ -683,6 +683,121 @@ public class TencentTest {
 	}
 */
 
+/*
+	// 1. 两数之和
+	public int[] twoSum(int[] nums, int target) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; i++) {
+			int goal = target - nums[i];
+			if (map.containsKey(goal)) {
+				return new int[]{map.get(goal), i};
+			} else {
+				map.put(nums[i], i);
+			}
+		}
+		return new int[2];
+	}
+*/
+
+/*
+	// 257. 二叉树的所有路径
+	private List<String> ans;
+
+	public List<String> binaryTreePaths(TreeNode root) {
+		ans = new LinkedList<>();
+		StringBuilder sb = new StringBuilder();
+		dfs(root, sb);
+		return ans;
+	}
+
+	private void dfs(TreeNode node, StringBuilder sb) {
+		if (node == null) {
+			return;
+		}
+
+		int len = sb.length();
+		sb.append(node.val);
+		if (node.left == null && node.right == null) {
+			ans.addLast(new String(sb));
+		} else {
+			sb.append("->");
+			dfs(node.left, sb);
+			dfs(node.right, sb);
+		}
+		sb.setLength(len);
+	}
+*/
+
+/*
+	// 198. 打家劫舍
+	public int rob(int[] nums) {
+		int len = nums.length;
+		if (len < 2) {
+			return nums[0];
+		}
+		int[] dp = new int[len];
+		dp[0] = nums[0];
+		dp[1] = Math.max(nums[0], nums[1]);
+		for (int i = 2; i < len; i++) {
+			dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+		}
+		return dp[len - 1];
+	}
+*/
+
+/*
+	// 662. 二叉树最大宽度
+	private class Pair<K, V> {
+		private K key;
+		private V value;
+
+		public Pair(K key, V value) {
+			this.key = key;
+			this.value = value;
+		}
+
+		public K getKey() {
+			return key;
+		}
+
+		public V getValue() {
+			return value;
+		}
+	}
+
+	public int widthOfBinaryTree(TreeNode root) {
+		int ans = 1;
+		Deque<Pair<TreeNode, Integer>> deque = new ArrayDeque<>();
+		deque.add(new Pair<>(root, 1));
+		while (!deque.isEmpty()) {
+			int size = deque.size(), left = -1, right = -1;
+			int levelMin = deque.peekFirst().getValue();
+			for (int i = 0; i < size; i++) {
+				Pair<TreeNode, Integer> pair = deque.pollFirst();
+
+				TreeNode node = pair.getKey();
+				int index = pair.getValue() - levelMin;
+
+				if (i == 0) {
+					left = index;
+				}
+				if (i == size - 1) {
+					right = index;
+				}
+
+				if (node.left != null) {
+					deque.offerLast(new Pair<>(node.left, index * 2));
+				}
+				if (node.right != null) {
+					deque.offerLast(new Pair<>(node.right, index * 2 + 1));
+				}
+			}
+			ans = Math.max(ans, right - left + 1);
+		}
+		return ans;
+	}
+*/
+
 	public class TreeNode {
 		int val;
 		TreeNode left;
