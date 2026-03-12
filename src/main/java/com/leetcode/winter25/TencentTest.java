@@ -798,6 +798,278 @@ public class TencentTest {
 	}
 */
 
+/*
+	// 106. 从中序与后序遍历序列构造二叉树
+	int postIdx;
+	int[] inorder;
+	int[] postorder;
+	Map<Integer, Integer> map = new HashMap<>();
+
+	public TreeNode buildTree(int[] inorder, int[] postorder) {
+		this.inorder = inorder;
+		this.postorder = postorder;
+
+		postIdx = postorder.length - 1;
+
+		for (int i = 0; i < inorder.length; i++) {
+			map.put(inorder[i], i);
+		}
+
+		return build(0, inorder.length - 1);
+	}
+
+	private TreeNode build(int left, int right) {
+		if (left > right) {
+			return null;
+		}
+
+		int rootVal = postorder[postIdx];
+		TreeNode root = new TreeNode(rootVal);
+
+		int index = map.get(rootVal);
+
+		postIdx--;
+		root.right = build(index + 1, right);
+		root.left = build(left, index - 1);
+		return root;
+	}
+*/
+
+/*
+	// 268. 丢失的数字
+	public int missingNumber(int[] nums) {
+		HashSet<Integer> set = new HashSet<>();
+		for (int num : nums) {
+			set.add(num);
+		}
+		int missing = -1;
+		for (int i = 0; i <= nums.length; i++) {
+			if (!set.contains(i)){
+				missing = i;
+				break;
+			}
+		}
+		return missing;
+	}
+*/
+
+/*
+	// 234. 回文链表
+	public boolean isPalindrome(ListNode head) {
+		if (head.next == null) {
+			return true;
+		}
+		ListNode middle = findMiddleNode(head);
+		ListNode reverse = reverse(middle);
+		while (reverse != null) {
+			if (reverse.val != head.val) {
+				return false;
+			}
+			reverse = reverse.next;
+			head = head.next;
+		}
+		return true;
+	}
+
+	private ListNode findMiddleNode(ListNode head) {
+		ListNode slow = head, fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow;
+	}
+
+	private ListNode reverse(ListNode node) {
+		ListNode pre = null, cur = node;
+		while (cur != null) {
+			ListNode temp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = temp;
+		}
+		return pre;
+	}
+*/
+
+/*
+	// 56. 合并区间
+	public int[][] merge(int[][] intervals) {
+		LinkedList<int[]> list = new LinkedList<>();
+		Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+		int lastEnd = -1;
+		for (int[] interval : intervals) {
+			if (interval[0] <= lastEnd) {
+				int left = list.pollLast()[0];
+				int right = Math.max(lastEnd, interval[1]);
+				list.offerLast(new int[]{left, right});
+				lastEnd = right;
+			} else {
+				list.offerLast(interval);
+				lastEnd = interval[1];
+			}
+		}
+		int[][] ans = new int[list.size()][];
+		for (int i = 0; i < list.size(); i++) {
+			ans[i] = list.get(i);
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 19. 删除链表的倒数第 N 个结点
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+		ListNode dummy = new ListNode(0, head);
+		ListNode l = dummy, r = dummy;
+		while (n-- > 0) {
+			r = r.next;
+		}
+		while (r.next != null) {
+			l = l.next;
+			r = r.next;
+		}
+		l.next = l.next.next;
+		return dummy.next;
+	}
+*/
+
+/*
+	// LCR 124. 推理二叉树
+	private Map<Integer, Integer> map;
+	private int[] preorder;
+
+	public TreeNode deduceTree(int[] preorder, int[] inorder) {
+		map = new HashMap<>();
+		this.preorder = preorder;
+		for (int i = 0; i < inorder.length; i++) {
+			map.put(inorder[i], i);
+		}
+		return buildTree(0, 0, inorder.length - 1);
+	}
+
+	private TreeNode buildTree(int index, int left, int right) {
+		if (left > right) {
+			return null;
+		}
+		TreeNode node = new TreeNode(preorder[index]);
+		int i = map.get(preorder[index]);
+		node.left = buildTree(index + 1, left, i - 1);
+		node.right = buildTree(index + i - left + 1, i + 1, right);
+		return node;
+	}
+*/
+
+/*
+	// 1360. 日期之间隔几天
+	private int[][] Month = {{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+	private int[] Day = {365, 366};
+
+	public int daysBetweenDates(String date1, String date2) {
+		String[] d1 = date1.split("-");
+		String[] d2 = date2.split("-");
+		int year1 = Integer.valueOf(d1[0]), year2 = Integer.valueOf(d2[0]);
+		int month1 = Integer.valueOf(d1[1]), month2 = Integer.valueOf(d2[1]);
+		int day1 = Integer.valueOf(d1[2]), day2 = Integer.valueOf(d2[2]);
+		int s1 = gap(year1, month1, day1);
+		int s2 = gap(year2, month2, day2);
+		return Math.abs(s1 - s2);
+	}
+
+	private int gap(int year, int month, int day) {
+		int sum = 0;
+		int flag = yearType(year);
+		for (int i = 1971; i < year; i++) {
+			sum += Day[yearType(i)];
+		}
+		for (int i = 1; i < month; i++) {
+			sum += Month[flag][i];
+		}
+		sum += day;
+		return sum;
+	}
+
+	//判断是否闰年
+	public int yearType(int year) {
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) return 1;
+		return 0;
+	}
+*/
+
+/*
+	// 21. 合并两个有序链表
+	public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+		ListNode dummy = new ListNode(), cur = dummy;
+		while (list1 != null && list2 != null) {
+			int val1 = list1.val;
+			int val2 = list2.val;
+			if (val1 <= val2) {
+				cur.next = list1;
+				cur = list1;
+				list1 = list1.next;
+			} else {
+				cur.next = list2;
+				cur = list2;
+				list2 = list2.next;
+			}
+		}
+		while (list1 != null) {
+			cur.next = list1;
+			cur = list1;
+			list1 = list1.next;
+		}
+		while (list2 != null) {
+			cur.next = list2;
+			cur = list2;
+			list2 = list2.next;
+		}
+		return dummy.next;
+	}
+*/
+
+/*
+	// 15. 三数之和
+	public List<List<Integer>> threeSum(int[] nums) {
+		Arrays.sort(nums);
+		List<List<Integer>> ans = new ArrayList<>();
+		int len = nums.length;
+		if (len < 3) {
+			return ans;
+		}
+		for (int i = 0; i < len - 2; i++) {
+			if (nums[i] > 0) {
+				break;
+			}
+			if (i > 0 && nums[i] == nums[i - 1]) {
+				continue;
+			}
+			int j = i + 1, k = len - 1;
+			while (j < k) {
+				int sum = nums[i] + nums[j] + nums[k];
+				if (sum == 0) {
+					ans.add(List.of(nums[i], nums[j], nums[k]));
+					while (j < k && nums[j] == nums[j + 1]) {
+						j++;
+					}
+					while (j < k && nums[k] == nums[k - 1]) {
+						k--;
+					}
+					j++;
+					k--;
+				} else if (sum < 0) {
+					j++;
+				} else {
+					k--;
+				}
+			}
+		}
+		return ans;
+	}
+*/
+
+	// 1044. 最长重复子串
+	// 560. 和为 K 的子数组
+
 	public class TreeNode {
 		int val;
 		TreeNode left;
