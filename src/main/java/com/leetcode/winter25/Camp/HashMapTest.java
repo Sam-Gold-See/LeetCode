@@ -123,6 +123,7 @@ public class HashMapTest {
 	}
 */
 
+/*
 	// 1615. 最大网络秩
 	public int maximalNetworkRank(int n, int[][] roads) {
 		boolean[][] connect = new boolean[n][n];
@@ -142,6 +143,164 @@ public class HashMapTest {
 			}
 		}
 		return ans;
+	}
+*/
+
+/*
+	// 454. 四数相加 II
+	public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for (int a : nums1) {
+			for (int b : nums2) {
+				map.put(a + b, map.getOrDefault(a + b, 0) + 1);
+			}
+		}
+
+		int ans = 0;
+		for (int c : nums3) {
+			for (int d : nums4) {
+				ans += map.getOrDefault(-(c + d), 0);
+			}
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 383. 赎金信
+	public boolean canConstruct(String ransomNote, String magazine) {
+		int[] map = new int[128];
+		for (char c : magazine.toCharArray()) {
+			map[c]++;
+		}
+
+		for (char c : ransomNote.toCharArray()) {
+			if (map[c] < 1) {
+				return false;
+			} else {
+				map[c]--;
+			}
+		}
+		return true;
+	}
+*/
+
+/*
+	// 18. 四数之和
+	public List<List<Integer>> fourSum(int[] nums, int target) {
+		List<List<Integer>> ans = new LinkedList<>();
+		Arrays.sort(nums);
+		int n = nums.length;
+		for (int i = 0; i < n; i++) {
+			int a = nums[i];
+			if (i > 0 && a == nums[i - 1]) {
+				continue;
+			}
+			for (int j = i + 1; j < n; j++) {
+				int b = nums[j];
+				if (j > i + 1 && b == nums[j - 1]) {
+					continue;
+				}
+				int l = j + 1, r = n - 1;
+				while (l < r) {
+					int c = nums[l], d = nums[r];
+					long sum =(long) a + b + c + d;
+					if (sum > target) {
+						r--;
+					} else if (sum < target) {
+						l++;
+					} else {
+						ans.add(Arrays.asList(a, b, c, d));
+						while (l < r && nums[l] == nums[l + 1]) {
+							l++;
+						}
+						while (l < r && nums[r] == nums[r - 1]) {
+							r--;
+						}
+						l++;
+						r--;
+					}
+				}
+			}
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 102. 二叉树的层序遍历
+	public List<List<Integer>> levelOrder(TreeNode root) {
+		List<List<Integer>> ans = new ArrayList<>();
+		if (root != null) {
+			Deque<TreeNode> deque = new ArrayDeque<>();
+			deque.offerLast(root);
+			while (!deque.isEmpty()) {
+				int size = deque.size();
+				List<Integer> temp = new LinkedList<>();
+				while (size-- > 0) {
+					TreeNode node = deque.pollFirst();
+					if (node.left != null) {
+						deque.offerLast(node.left);
+					}
+					if (node.right != null) {
+						deque.offerLast(node.right);
+					}
+					temp.addLast(node.val);
+				}
+				ans.add(temp);
+			}
+		}
+		return ans;
+	}
+*/
+
+/*
+	// 33. 搜索旋转排序数组
+	public int search(int[] nums, int target) {
+		int l = 0, r = nums.length - 1;
+		while (l <= r) {
+			int mid = l + (r - l) /2;
+			if (nums[mid] == target) {
+				return mid;
+			}
+			if (nums[l] <= nums[mid]) {
+				if (nums[l] <= target && target < nums[mid]) {
+					r = mid - 1;
+				} else {
+					l = mid + 1;
+				}
+			}
+			if (nums[mid] <= nums[r]) {
+				if (nums[mid] < target && target <= nums[r]) {
+					l = mid + 1;
+				} else {
+					r = mid - 1;
+				}
+			}
+		}
+		return -1;
+	}
+*/
+
+	// 20. 有效的括号
+	public boolean isValid(String s) {
+		int[] left = new int[128];
+		left['('] = ')';
+		left['['] = ']';
+		left['{'] = '}';
+		int[] right = new int[128];
+		right[')'] = '(';
+		right[']'] = '[';
+		right['}'] = '{';
+		Stack<Character> stack = new Stack<>();
+		for (char c : s.toCharArray()) {
+			if (left[c] != 0) {
+				stack.push(c);
+			} else if (stack.isEmpty() || stack.pop() != right[c]) {
+				return false;
+			}
+		}
+		return stack.isEmpty();
 	}
 
 	@Test
