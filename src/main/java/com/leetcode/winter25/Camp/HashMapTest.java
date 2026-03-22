@@ -282,6 +282,7 @@ public class HashMapTest {
 	}
 */
 
+/*
 	// 20. 有效的括号
 	public boolean isValid(String s) {
 		int[] left = new int[128];
@@ -302,6 +303,7 @@ public class HashMapTest {
 		}
 		return stack.isEmpty();
 	}
+*/
 
 	@Test
 	public void test() {
