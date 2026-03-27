@@ -252,6 +252,126 @@ public class BinaryTreeTest {
 	}
 */
 
+/*
+	// 106. 从中序与后续遍历序列构造二叉树
+	private Map<Integer, Integer> map = new HashMap<>();
+	private int[] postorder;
+
+	public TreeNode buildTree(int[] inorder, int[] postorder) {
+		for (int i = 0; i < inorder.length; i++) {
+			map.put(inorder[i], i);
+		}
+		this.postorder = postorder;
+		return build(0, inorder.length - 1, 0, postorder.length - 1);
+	}
+
+	private TreeNode build(int inL, int inR, int postL, int postR) {
+		if (inL > inR || postL > postR) {
+			return null;
+		}
+
+		int val = postorder[postR];
+		int idx = map.get(val);
+
+		TreeNode node = new TreeNode(val);
+		node.left = build(inL, idx - 1, postL, postL + idx - inL - 1);
+		node.right = build(idx + 1, inR, postL + idx - inL, postR - 1);
+		return node;
+	}
+*/
+
+
+/*
+	// 654. 最大二叉树
+	public TreeNode constructMaximumBinaryTree(int[] nums) {
+		return build(nums, 0, nums.length - 1);
+	}
+
+	private TreeNode build(int[] nums, int left, int right) {
+		if (left > right) {
+			return null;
+		}
+		int best = left;
+		for (int i = left + 1; i <= right; i++) {
+			if (nums[i] > nums[best]) {
+				best = i;
+			}
+		}
+		TreeNode node = new TreeNode(nums[best]);
+		node.left = build(nums, left, best - 1);
+		node.right = build(nums, best + 1, right);
+		return node;
+	}
+*/
+
+/*
+	// 617. 合并二叉树
+	public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+		if (root1 == null || root2 == null) {
+			return root1 == null ? root2 : root1;
+		}
+		return build(root1, root2);
+	}
+
+	private TreeNode build(TreeNode node1, TreeNode node2) {
+		if (node1 == null || node2 == null) {
+			return node1 == null ? node2 : node1;
+		}
+		node1.val += node2.val;
+		node1.left = build(node1.left, node2.left);
+		node1.right = build(node1.right, node2.right);
+		return node1;
+	}
+*/
+
+/*
+	// 700. 二叉搜索树中的搜索
+	public TreeNode searchBST(TreeNode root, int val) {
+		if (root == null || root.val == val) {
+			return root;
+		}
+		return root.val > val ? searchBST(root.left, val) : searchBST(root.right, val);
+	}
+*/
+
+/*
+	// 98 验证二叉搜索树
+	public boolean isValidBST(TreeNode root) {
+		return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+	}
+
+	public boolean isValidBST(TreeNode node, long lower, long upper) {
+		if (node == null) {
+			return true;
+		}
+		if (node.val <= lower || node.val >= upper) {
+			return false;
+		}
+		return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
+	}
+*/
+
+/*
+	// 530 二叉搜索树的最小绝对差 二叉树 DFS
+	private int ans = Integer.MAX_VALUE;
+	private int pre = -1;
+
+	public int getMinimumDifference(TreeNode root) {
+		dfs(root);
+		return ans;
+	}
+
+	private void dfs(TreeNode node) {
+		if (node == null)
+			return;
+		dfs(node.left);
+		if (pre != -1)
+			ans = Math.min(ans, node.val - pre);
+		pre = node.val;
+		dfs(node.right);
+	}
+*/
+
 	@Test
 	public void test() {
 
