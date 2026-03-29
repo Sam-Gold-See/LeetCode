@@ -372,6 +372,165 @@ public class BinaryTreeTest {
 	}
 */
 
+/*
+	// 501. 二叉搜索树中的众数
+	List<Integer> answer = new ArrayList<>();
+	int base, count, maxCount;
+
+	public int[] findMode(TreeNode root) {
+		dfs(root);
+		return answer.stream().mapToInt(Integer::intValue).toArray();
+	}
+
+	private void dfs(TreeNode node) {
+		if (node == null) {
+			return;
+		}
+		dfs(node.left);
+		update(node.val);
+		dfs(node.right);
+	}
+
+	private void update(int val) {
+		if (val == base) {
+			count++;
+		} else {
+			count = 1;
+			base = val;
+		}
+
+		if (count == maxCount) {
+			answer.add(base);
+		} else if (count > maxCount) {
+			maxCount = count;
+			answer.clear();
+			answer.add(val);
+		}
+	}
+*/
+
+/*
+	// 236. 二叉树的最近公共祖先
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null || root == p || root == q) {
+			return root;
+		}
+		TreeNode left = lowestCommonAncestor(root.left, p, q);
+		TreeNode right = lowestCommonAncestor(root.right, p, q);
+		if (left == null) {
+			return right;
+		}
+		if (right == null) {
+			return left;
+		}
+		return root;
+	}
+*/
+
+/*
+	// 235. 二叉搜索树的最近公共祖先
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		List<TreeNode> pathP = getPath(root, p);
+		List<TreeNode> pathQ = getPath(root, q);
+		TreeNode ans = null;
+		for (int i = 0; i < pathP.size() && i < pathQ.size(); i++) {
+			if (pathP.get(i) == pathQ.get(i)) {
+				ans = pathP.get(i);
+			} else {
+				break;
+			}
+		}
+		return ans;
+	}
+
+	private List<TreeNode> getPath(TreeNode root, TreeNode target) {
+		List<TreeNode> path = new ArrayList<>();
+		TreeNode node = root;
+		while (node != target) {
+			path.add(node);
+			if (target.val < node.val) {
+				node = node.left;
+			} else {
+				node = node.right;
+			}
+		}
+		path.add(node);
+		return path;
+	}
+*/
+
+/*
+	// 701. 二叉搜索树中的插入操作
+	public TreeNode insertIntoBST(TreeNode root, int val) {
+		if (root == null) {
+			return new TreeNode(val);
+		}
+		TreeNode pos = root;
+		while (true) {
+			if (val < pos.val) {
+				if (pos.left == null) {
+					pos.left = new TreeNode(val);
+					break;
+				} else {
+					pos = pos.left;
+				}
+			} else {
+				if (pos.right == null) {
+					pos.right = new TreeNode(val);
+					break;
+				} else {
+					pos = pos.right;
+				}
+			}
+		}
+		return root;
+	}
+*/
+
+/*
+	// 450. 删除二叉搜索树中的节点
+	public TreeNode deleteNode(TreeNode root, int key) {
+		if (root == null) {
+			return null;
+		}
+		if (root.val == key) {
+			if (root.right == null) {
+				return root.left;
+			}
+			if (root.left == null) {
+				return root.right;
+			}
+			TreeNode node = root.left;
+			while (node.right != null) {
+				node = node.right;
+			}
+			node.right = root.right;
+			return root.left;
+		} else if (root.val < key) {
+			root.right = deleteNode(root.right, key);
+		} else {
+			root.left = deleteNode(root.left, key);
+		}
+		return root;
+	}
+*/
+
+	// 669. 修剪二叉搜索树
+	public TreeNode trimBST(TreeNode root, int low, int high) {
+		if (root == null) {
+			return null;
+		}
+		if (root.val < low) {
+			return trimBST(root.right, low, high);
+		} else if (root.val > high) {
+			return trimBST(root.left, low, high);
+		} else {
+			root.left = trimBST(root.left, low, high);
+			root.right = trimBST(root.right, low, high);
+			return root;
+		}
+	}
+
 	@Test
 	public void test() {
 
