@@ -515,6 +515,7 @@ public class BinaryTreeTest {
 	}
 */
 
+/*
 	// 669. 修剪二叉搜索树
 	public TreeNode trimBST(TreeNode root, int low, int high) {
 		if (root == null) {
@@ -530,6 +531,102 @@ public class BinaryTreeTest {
 			return root;
 		}
 	}
+*/
+
+/*
+	// 108. 将有序数组转换为二叉搜索树
+	public TreeNode sortedArrayToBST(int[] nums) {
+		return dfs(nums, 0, nums.length - 1);
+	}
+
+	private TreeNode dfs(int[] nums, int left, int right) {
+		if (left > right) {
+			return null;
+		}
+		int mid = left + (right - left) / 2;
+		TreeNode node = new TreeNode(nums[mid]);
+		node.left = dfs(nums, left , mid - 1);;
+		node.right = dfs(nums, mid + 1, right);
+		return node;
+	}
+*/
+
+/*
+	// 538. 把二叉搜索树转换为累加树
+	int sum = 0;
+
+	public TreeNode convertBST(TreeNode root) {
+		if (root != null) {
+			convertBST(root.right);
+			sum += root.val;
+			root.val = sum;
+			convertBST(root.left);
+		}
+		return root;
+	}
+*/
+
+/*
+	// 415. 字符串相加
+	public String addStrings(String num1, String num2) {
+		int pos1 = num1.length() - 1, pos2 = num2.length() - 1;
+		int res = 0;
+		StringBuilder sb = new StringBuilder();
+		while (pos1 >= 0 || pos2 >= 0) {
+			int a = pos1 >= 0 ? num1.charAt(pos1--) - '0' : 0;
+			int b = pos2 >= 0 ? num2.charAt(pos2--) - '0' : 0;
+			int num = a + b + res;
+			res = num / 10;
+			sb.append(num % 10);
+		}
+		if (res != 0) {
+			sb.append(res);
+		}
+		return sb.reverse().toString();
+	}
+*/
+
+/*
+	// 142. 环形链表 II
+	public ListNode detectCycle(ListNode head) {
+		ListNode slow = head, fast = head;
+		while (true) {
+			if (fast == null || fast.next == null) {
+				return null;
+			}
+			fast = fast.next.next;
+			slow = slow.next;
+			if (fast == slow) {
+				break;
+			}
+		}
+		fast = head;
+		while (slow != fast) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+		return fast;
+	}
+*/
+
+/*
+	// 300. 最长递增子序列
+	public int lengthOfLIS(int[] nums) {
+		int ans = 0;
+		int len = nums.length;
+		int[] dp = new int[len];
+		Arrays.fill(dp, 1);
+		for (int i = 0; i < len; i++) {
+			for (int j = 0; j <= i; j++) {
+				if (nums[i] > nums[j]) {
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+				}
+			}
+			ans = Math.max(ans, dp[i]);
+		}
+		return ans;
+	}
+*/
 
 	@Test
 	public void test() {
